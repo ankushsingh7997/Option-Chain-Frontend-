@@ -41,13 +41,13 @@ export class TradingWebSocket extends EventEmitter {
   private brokerData: BrokerData | null = null;
   private isConnected = false;
   private isOpen = false;
-  private reconnectAttempts = 0;
-  private maxReconnectAttempts = 5;
-  private reconnectDelay = 5000;
+  reconnectAttempts = 0;
+  // private maxReconnectAttempts = 5;
+  // private reconnectDelay = 5000;
   private reconnectTimer: NodeJS.Timeout | null = null;
   private tokenSubscribed: { [key: string]: number } = {};
   private timeoutIds: { [key: string]: NodeJS.Timeout } = {};
-  private readonly updateDelay = 750;
+  // private readonly updateDelay = 750;
 
   // Debouncing properties
   private tickerUpdateTimer: NodeJS.Timeout | null = null;

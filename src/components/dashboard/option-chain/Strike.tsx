@@ -33,7 +33,7 @@ const Strike: React.FC<StrikeProps> = memo(({ strike, bg }) => (
     </div>
 ))
 
-const Call: React.FC<CallPutProps> = memo(({ strike, lp, bg, oi, poi = 0, maxOi, option, onToggle }) => {
+const Call: React.FC<CallPutProps> = memo(({ lp, bg, oi, poi = 0, maxOi, option, onToggle }) => {
     const profit = poi !== 0 ? (((Number(oi) - poi) / poi) * 100) > 0 : false
    
     const classCss = {
@@ -64,7 +64,7 @@ const Call: React.FC<CallPutProps> = memo(({ strike, lp, bg, oi, poi = 0, maxOi,
     )
 })
 
-const Put: React.FC<CallPutProps> = memo(({ strike, lp, bg, oi, poi, maxOi, option, onToggle }) => {
+const Put: React.FC<CallPutProps> = memo(({  lp, bg, oi, poi, maxOi, option, onToggle }) => {
     const profit = poi !== 0 ? (((Number(oi) - poi) / poi) * 100) > 0 : false
     const textColorClass = profit ? "text-profit" : "text-loss"
     const classCss = {

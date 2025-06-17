@@ -2,12 +2,12 @@ import { TradingWebSocket, BrokerData } from "../websocket/websocket";
 import { OptionChainManager } from "../websocket/optionChainUtils";
 import { store } from "../store";
 import {setInstance,setConnected,updateTickerData,setError as setWebSocketError,disconnect} from "../store/slices/websocketSlice";
-import {setLoading,setOptionChainData,updateOptionObject,setError as setOptionChainError} from "../store/slices/optionChainSlice";
+import {setLoading,setOptionChainData,setError as setOptionChainError} from "../store/slices/optionChainSlice";
 import {setLoading as setTradingLoading,setPositions,setOrders,setError as setTradingError} from "../store/slices/tradingSlice";
 import { getExpiry } from "../constant/option";
 import { formatDate, getLatestExpiryDate } from "../constant/websocketConstants";
-import { GET_TRADES, GET_ORDERS } from "../graphql/trade/trade";
-import type {GetTraderResponse,GetTraderVariables,GetOrdersResponse,GetOrdersVariables,Position,Order} from "../graphql/trade/types";
+import { GET_TRADES } from "../graphql/trade/trade";
+import type {GetTraderResponse,GetTraderVariables,Position,Order} from "../graphql/trade/types";
 import client from "../apollo/client";
 
 class WebSocketService {
@@ -140,7 +140,7 @@ class WebSocketService {
 
         const positions = store.getState().trading.positions;
         if (positions.length > 0) {
-          this.updatePositionsMapping(positions);
+          this.updatePositionsMapping();
         }
       }
     } catch (error: any) {
@@ -159,7 +159,7 @@ class WebSocketService {
 
       if (position) {
         store.dispatch(setPositions(position));
-        this.updatePositionsMapping(position);
+        this.updatePositionsMapping();
         if (this.ws && position.length > 0) {
           this.ws.subscribeToPositions(position);
         }
@@ -191,30 +191,31 @@ class WebSocketService {
     }
   }
 
-  private async fetchOrders(actid: string): Promise<any[] | null> {
-    try {
-      const { data } = await client.query<GetOrdersResponse, GetOrdersVariables>({
-        query: GET_ORDERS,
-        variables: { actid },
-        fetchPolicy: "network-only"
-      });
-      return data.getOrders.data || [];
-    } catch (error: any) {
-      console.error("Error fetching orders:", error);
-      return [];
-    }
-  }
+  // private async fetchOrders(actid: string): Promise<any[] | null> {
+  //   try {
+  //     const { data } = await client.query<GetOrdersResponse, GetOrdersVariables>({
+  //       query: GET_ORDERS,
+  //       variables: { actid },
+  //       fetchPolicy: "network-only"
+  //     });
+  //     return data.getOrders.data || [];
+  //   } catch (error: any) {
+  //     console.error("Error fetching orders:", error);
+  //     return [];
+  //   }
+  // }
 
-  private updatePositionsMapping(positions: any[]): void {
+  private updatePositionsMapping(): void {
+    // private updatePositionsMapping(positions: any[]): void {
     if (!this.optionChainManager) return;
 
     const state = store.getState();
     const { optionObject } = state.optionChain;
 
-    // if (Object.keys(optionObject).length > 0) {
-    //   const mappedOptionObject = this.optionChainManager.mapPositionsToOptionObject(positions,optionObject);
-    //   store.dispatch(updateOptionObject(mappedOptionObject));
-    // }
+    if (Object.keys(optionObject).length > 0) {
+      // const mappedOptionObject = this.optionChainManager.mapPositionsToOptionObject(positions,optionObject);
+      // store.dispatch(updateOptionObject(mappedOptionObject));
+    }
   }
 
   public subscribeToOptionChain(tokens: string[]): void {
@@ -253,5 +254,5 @@ class WebSocketService {
 }
 
 export const websocketService = new WebSocketService(
-  "wss://norenapi.thefirstock.com/NorenWSTP/"
+  import.meta.env.VITE_WEBSOCKET_URL
 );

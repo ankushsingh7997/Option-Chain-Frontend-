@@ -1,12 +1,52 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Required Meta Tags -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+
+    <!-- SEO Meta Tags -->
+    <title>Option Chain | Trade Nifty, Bank Nifty, FinNifty Options</title>
+    <meta name="description" content="Advanced trading app by Ankush Singh for options trading in Nifty, BankNifty, FinNifty, and MidCap. Place orders directly from the option chain, view PnL, MTM, and margin using Firstock." />
+    <meta name="keywords" content="Option Chain, Nifty, Bank Nifty, FinNifty, MidCap, PnL, MTM, Trading App, Firstock, Stock Trading, Options Trading, Ankush Singh" />
+    <meta name="author" content="Ankush Singh" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Option Chain | Trade Options Smarter" />
+    <meta property="og:description" content="Track and trade Nifty, Bank Nifty, FinNifty options. Monitor MTM, PnL, and place trades directly from the option chain." />
+    <meta property="og:image" content="/preview.png" />
+    <meta property="og:url" content="https://yourdomain.com" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Option Chain | Smart Options Trading" />
+    <meta name="twitter:description" content="Real-time options trading app for Nifty and Bank Nifty with MTM and margin tracking." />
+    <meta name="twitter:image" content="/preview.png" />
+
+    <!-- Security Meta Tags -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta
+    http-equiv="Content-Security-Policy"
+    content="
+      default-src 'self';
+      script-src 'self' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline';
+      connect-src 'self' wss://norenapi.thefirstock.com http://localhost:* ws://localhost:* https://connect.thefirstock.com/api/V4/optionChain;
+      img-src 'self' data:;
+    "
+  />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <!-- Styles (tailwind, fonts, etc. are typically imported via JS/CSS files in Vite) -->
   </head>
-  <body class="flex items-center justify-center min-w-[320px] min-h-screen">
+
+  <body class="flex items-center justify-center min-w-[320px] min-h-screen md:overflow-hidden text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

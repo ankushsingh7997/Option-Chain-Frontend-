@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { PlaceOrderInput, Position } from "../graphql/trade/types";
+import { PlaceOrderInput } from "../graphql/trade/types";
 import { OptionChainData } from "../websocket/optionChainUtils";
 import { INDEX_TICKER_MAP, STRIKE_DIFFERENCES } from "./websocketConstants";
 import { PositionWithPnL } from "../components/dashboard/trade/Portfolio";

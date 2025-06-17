@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { Plus, User } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { REGISTER_BROKER } from '../../graphql/broker/broker';
 import { RegisterBrokerResponse, RegisterBrokerInput } from '../../graphql/broker/types';
 import Button from '../ui/Button/Button';

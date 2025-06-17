@@ -68,7 +68,7 @@ export const optionChainListenerMiddleware = createListenerMiddleware();
 
 optionChainListenerMiddleware.startListening({
   actionCreator: setOptionChainParams,
-  effect: async (action, listenerApi) => {
+  effect: async (action, ) => {
     const { selectedIndex, currentPrice, expiryDate } = action.payload;
     const newParams = { selectedIndex, currentPrice, expiryDate };
 
