@@ -17,6 +17,7 @@ dist-ssr
 *.env
 test*
 *test.ts
+*.sh
 
 # Editor directories and files
 .vscode/*
