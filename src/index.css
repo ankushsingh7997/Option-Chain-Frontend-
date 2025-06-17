@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* --- Tailwind CSS v4 Core Styles & Theme Configuration --- */
+@import "tailwindcss";
+
+@theme {
+  /*
+     Font Family - Correct prefix for Tailwind v4
+  */
+  --font-family-ibm: "IBM Plex Sans", sans-serif;
+  --font-family-montserrat: "Montserrat", sans-serif;
+
+  /*
+     Font Size - Fixed for Tailwind v4
+     Remove the "font-size" prefix, just use the number
+  */
+  --font-size-10: 0.625rem;    /* 10px */
+  --font-size-11: 0.6875rem;   /* 11px */
+  --font-size-12: 0.75rem;     /* 12px */
+  --font-size-14: 0.875rem;    /* 14px */
+  --font-size-15: 0.9375rem;   /* 15px */
+  --font-size-16: 1rem;        /* 16px */
+  --font-size-17: 1.0625rem;   /* 17px */
+  --font-size-18: 1.125rem;    /* 18px */
+  --font-size-20: 1.25rem;     /* 20px */
+  --font-size-22: 1.375rem;    /* 22px */
+  --font-size-24: 1.5rem;      /* 24px */
+  --font-size-30: 1.875rem;    /* 30px */
+  --font-size-36: 2.25rem;     /* 36px */
+
+  /*
+     Alternative: Define as text utilities directly
+  */
+  --text-10: 0.625rem;
+  --text-11: 0.6875rem;
+  --text-12: 0.75rem;
+  --text-14: 0.875rem;
+  --text-15: 0.9375rem;
+  --text-16: 1rem;
+  --text-17: 1.0625rem;
+  --text-18: 1.125rem;
+  --text-20: 1.25rem;
+  --text-22: 1.375rem;
+  --text-24: 1.5rem;
+  --text-30: 1.875rem;
+  --text-36: 2.25rem;
+
+  /*
+     Font Weight
+  */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+
+  /*
+     Colors
+  */
+  --color-pri-blue: #004496;
+  --color-sec-blue: #3f59d8;
+  --color-background: #010e1e;
+  --color-background-2:#0a1829;
+  --color-background-3:rgba(10,24,41,0.6);
+  --color-border: #878686;
+  --color-light-gray: rgba(240, 240, 240, 0.1);
+  --color-sec-blue-light: rgba(63, 89, 216, 0.38);
+  --color-sec-blue-lighter: rgba(63, 89, 216, 0.10);
+  --color-profit: rgba(9, 202, 121, 1);
+  --color-profit-light: #0abf8e80;
+  --color-loss: rgba(240, 68, 56, 1);
+  --color-loss-light: rgba(254, 90, 90, 0.20);
+  --color-pending: #ffa629;
+  --color-pri-gray: #4B4C51;
+  --color-sec-gray: #717171;
+  --color-gray-light: #9A9A9A;
+  --color-gray-lighter: #A2A2A2;
+  --color-custom-green: #31c059;
+  --color-itm: #ffe5850d;
+  --color-atm: #061730;
+  --color-elemental-gray:rgba(240,240,240,0.05);
+
+  /*
+     Box Shadow
+  */
+  --shadow-1: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  /*
+     Border Radius - Correct prefix for Tailwind v4
+  */
+  --radius-pill: 25px;
+
+  /*
+     Screens (Breakpoints)
+  */
+  --breakpoint-xs: 475px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* --- Custom Utilities for Text Sizes --- */
+@layer utilities {
+  .text-10 { font-size: 0.625rem; }
+  .text-11 { font-size: 0.6875rem; }
+  .text-12 { font-size: 0.75rem; }
+  .text-13 { font-size: 0.85rem; }
+  .text-14 { font-size: 0.875rem; }
+  .text-15 { font-size: 0.9375rem; }
+  .text-16 { font-size: 1rem; }
+  .text-17 { font-size: 1.0625rem; }
+  .text-18 { font-size: 1.125rem; }
+  .text-20 { font-size: 1.25rem; }
+  .text-22 { font-size: 1.375rem; }
+  .text-24 { font-size: 1.5rem; }
+  .text-30 { font-size: 1.875rem; }
+  .text-36 { font-size: 2.25rem; }
+}
+
+/* --- Global Base Styles --- */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  font-family: var(--font-family-montserrat);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+:root {
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #010e1e;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+
+/* Dropdown Menu Overlay */
+.actions-dropdown-overlay .ant-dropdown {
+  background-color: #1a1a1a !important;
+  border: 1px solid #333 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+  padding: 4px 0 !important;
+}
+
+/* Dropdown Menu Items */
+.actions-dropdown-overlay .ant-dropdown-menu {
+  background-color: var(--color-atm);
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.actions-dropdown-overlay .ant-dropdown-menu-item {
+  color: #ffffff !important;
+  font-size: 0.75rem !important; /* text-12 */
+  font-family: var(--font-family-montserrat) !important;
+  padding: 8px 16px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  transition: all 0.15s ease !important;
+}
+
+.actions-dropdown-overlay .ant-dropdown-menu-item:hover {
+  background-color: var(--color-sec-blue-lighter) !important;
+  color: #ffffff !important;
+}
+
+.actions-dropdown-overlay .ant-dropdown-menu-item:active {
+  background-color: var(--color-sec-blue-light) !important;
+}
+
+/* Dropdown Arrow Icon */
+.actions-dropdown-btn .anticon-down {
+  color: #ffffff !important;
+  font-size: 10px !important;
+  margin-left: 8px !important;
+  font-weight: 600 !important;
+}
+
+/* Remove default ant design button styles that might interfere */
+.actions-dropdown-btn.ant-btn {
+  box-shadow: none !important;
+}
+
+.actions-dropdown-btn.ant-btn:focus {
+  outline: none !important;
+}
+
+/* Ensure dropdown menu appears above other elements */
+.actions-dropdown-overlay {
+  z-index: 1050 !important;
+}
+
+/* Table custom css */
