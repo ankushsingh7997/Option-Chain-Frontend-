@@ -15,7 +15,5 @@ export const clearAllBrokerData = () => {
         
         // Clear option chain data
         dispatch(clearOptionChain());
-        
-        console.log('All broker-related data cleared');
     };
 };

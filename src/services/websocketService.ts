@@ -72,12 +72,10 @@ class WebSocketService {
     });
 
     this.ws.on("orderAlert", (alertData) => {
-      console.log("Order alert received:", alertData);
       this.debounceFetchTradingData(alertData.orderData.actid);
     });
 
     this.ws.on("error", (error) => {
-      console.log('this is i am call')
       console.error("WebSocket error:", error);
       store.dispatch(setWebSocketError(error.message));
     });

@@ -16,7 +16,7 @@
     <meta property="og:title" content="Option Chain | Trade Options Smarter" />
     <meta property="og:description" content="Track and trade Nifty, Bank Nifty, FinNifty options. Monitor MTM, PnL, and place trades directly from the option chain." />
     <meta property="og:image" content="/preview.png" />
-    <meta property="og:url" content="https://yourdomain.com" />
+    <meta property="og:url" content="https://option.fincopy.in" />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Meta Tags -->
@@ -35,15 +35,23 @@
       default-src 'self';
       script-src 'self' 'unsafe-inline';
       style-src 'self' 'unsafe-inline';
-      connect-src 'self' wss://norenapi.thefirstock.com http://localhost:* ws://localhost:* https://connect.thefirstock.com/api/V4/optionChain;
+      connect-src 'self' wss://norenapi.thefirstock.com https://connect.thefirstock.com/api/V4/optionChain https://option.fincopy.in http://localhost:* ws://localhost:*;
       img-src 'self' data:;
+      font-src 'self';
+      object-src 'none';
+      base-uri 'self';
+      frame-ancestors 'none';
     "
   />
+  
+
+    <!-- Preload Social Preview (Optional for Performance) -->
+    <link rel="preload" as="image" href="/preview.png" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" href="/favicon.ico" />
 
-    <!-- Styles (tailwind, fonts, etc. are typically imported via JS/CSS files in Vite) -->
+    <!-- Styles are imported via JS in Vite setup -->
   </head>
 
   <body class="flex items-center justify-center min-w-[320px] min-h-screen md:overflow-hidden text-white">
