@@ -9,6 +9,7 @@ import { formatDate, getLatestExpiryDate } from "../constant/websocketConstants"
 import { GET_TRADES } from "../graphql/trade/trade";
 import type {GetTraderResponse,GetTraderVariables,Position,Order} from "../graphql/trade/types";
 import client from "../apollo/client";
+import { addToast } from "../store/slices/toastSlice";
 
 class WebSocketService {
   private ws: TradingWebSocket | null = null;
@@ -72,6 +73,9 @@ class WebSocketService {
     });
 
     this.ws.on("orderAlert", (alertData) => {
+      if (alertData.type === "error") {
+        store.dispatch(addToast({ message: alertData.message, type: 'error' }));
+      }
       this.debounceFetchTradingData(alertData.orderData.actid);
     });
 
