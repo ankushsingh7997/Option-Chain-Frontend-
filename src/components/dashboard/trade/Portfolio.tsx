@@ -1,7 +1,4 @@
 import React from "react";
-import Button from "../../ui/Button/Button";
-import Positions from "./Positions";
-import Orders from "./Orders";
 import { selectBrokerData, selectPositionsWithPnL } from "../../../store/selectors";
 import { useAppSelector } from "../../../store";
 import { Position } from "../../../graphql/trade/types";
@@ -12,15 +9,9 @@ import { useToast } from "../../../hooks/useToast";
 import TradesExecutions from "./TradeExecutions";
 import Headers from "./Headers";
 
-
-
-// Create a consistent position type with PnL
 export interface PositionWithPnL extends Position {
   pnl: number;
 }
-
-
-
 
 const Portfolio: React.FC = () => {
   const [tab, setTab] = React.useState("open-position");
