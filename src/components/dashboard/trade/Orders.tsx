@@ -34,7 +34,8 @@ const LTP: React.FC<{ ord: Order }> = ({ ord }) => {
 }
 
 const Status: React.FC<{ ord: Order }> = ({ ord }) => {
-  return <span>{ord.status}</span>
+  const textColor=ord.status==="REJECTED"? "loss":ord.status==="COMPLETE"?"profit":""
+  return <span className={`text-${textColor}`}>{ord.status}</span>
 }
 
 const COMPONENT_MAP: { [key: string]: React.FC<{ ord: Order }> } = {

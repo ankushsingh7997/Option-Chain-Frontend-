@@ -54,7 +54,7 @@ const LTP: React.FC<{ pos: PositionWithPnL }> = ({ pos }) => {
 }
 
 const Lot: React.FC<{ pos: PositionWithPnL }> = ({ pos }) => {
-  const lots = pos.netQuantity !== 0 ? pos.lotSize / pos.netQuantity : "--"
+  const lots = pos.netQuantity !== 0 ?  pos.netQuantity / pos.lotSize  : "--"
   return <span>{lots}</span>;
 }
 
