@@ -18,6 +18,7 @@ dist-ssr
 test*
 *test.ts
 *.sh
+package-lock.json
 
 # Editor directories and files
 .vscode/*
