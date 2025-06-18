@@ -36,6 +36,7 @@ export const WEBSOCKET_CONFIG = {
     CANCELED: 'CANCELED'
   } as const;
   
+  
   export const ORDER_REPORT_TYPES = {
     NEW: 'New',
     FILL: 'Fill',
@@ -113,10 +114,10 @@ export const WEBSOCKET_CONFIG = {
   } => {
     const length = tradingSymbol.length;
     const strike = tradingSymbol.substring(length - 5, length);
-    const optionType = tradingSymbol.substring(length - 8, length).includes('P') ? 'PE' : 'CE';
+    const optionType = tradingSymbol.substring(length - 8, length).includes('P') ? OPTION_TYPES.PUT : OPTION_TYPES.CALL;
     
     return { strike, optionType };
-  };
+  }
   
   export const formatDate = (date: Date): string => {
     const day = date.getDate().toString().padStart(2, "0");

@@ -2,6 +2,8 @@ import { useAppSelector } from "../store";
 import { isITM, isAtmStrike } from "../constant/option";
 import { selectOptionObject, selectOptionChainState, selectMaxOI, selectTickerByToken,} from "../store/selectors";
 import { useMemo } from "react";
+import { OPTION_TYPES } from "../constant/websocketConstants";
+
 
 
 const flowObj: { [key: string]: string } = {
@@ -22,8 +24,8 @@ export const useStrikeData = (strike: string | number) => {
   const currentIndexVal = Number(indexTicker?.lp ?? 0);
   const selectedToken = Number(option.selectedIndex);
 
-  const callItm = isITM({ type: "CE", strike: strikeNum, currentIndexVal });
-  const putItm = isITM({ type: "PE", strike: strikeNum, currentIndexVal });
+  const callItm = isITM({ type: OPTION_TYPES.CALL, strike: strikeNum, currentIndexVal });
+  const putItm = isITM({ type: OPTION_TYPES.PUT, strike: strikeNum, currentIndexVal });
   const atm = isAtmStrike({
     strike: strikeNum,
     currentIndexVal,

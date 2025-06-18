@@ -1,7 +1,7 @@
 import axios from "axios"
 import _ from "lodash"
 
-import { getTradingSymbol,getNearestStrikePrice,createFullTokenString,INDEX_TICKER_MAP,STRIKE_DIFFERENCES } from "../constant/websocketConstants"
+import { getTradingSymbol,getNearestStrikePrice,createFullTokenString,INDEX_TICKER_MAP,STRIKE_DIFFERENCES, OPTION_TYPES, parseTokenFromSymbol } from "../constant/websocketConstants"
 
 export interface OptionChainData{
     exchage:string;
@@ -121,16 +121,7 @@ export class OptionChainManager{
     }
 
 
-      private parsePositionSymbol(tradingSymbol: string): {
-        strike: string;
-        optionType: 'CE' | 'PE';
-      } {
-        const length = tradingSymbol.length;
-        const strike = tradingSymbol.substring(length - 5, length);
-        const optionType = tradingSymbol.substring(length - 8, length).includes('P') ? 'PE' : 'CE';
-        
-        return { strike, optionType };
-      }
+      private parsePositionSymbol=parseTokenFromSymbol
 
 
     public updateBrokerData(brokerData:any):void{

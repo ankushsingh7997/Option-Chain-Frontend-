@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { PlaceOrderInput } from "../graphql/trade/types";
 import { OptionChainData } from "../websocket/optionChainUtils";
-import { INDEX_TICKER_MAP, STRIKE_DIFFERENCES } from "./websocketConstants";
+import { INDEX_TICKER_MAP, OPTION_TYPES, STRIKE_DIFFERENCES } from "./websocketConstants";
 import { PositionWithPnL } from "../components/dashboard/trade/Portfolio";
 
 interface ExpiryReturn {
@@ -38,8 +38,9 @@ export type InstrumentCode = "26009" | "26000" | "26037" | "26074";
     strike:number;
     currentIndexVal:number
   }
+  
   export const isITM=({type,strike,currentIndexVal}:Itm):boolean=>{
-    return (type==="CE" && strike < currentIndexVal || (type==="PE" &&strike > currentIndexVal ))
+    return (type===OPTION_TYPES.CALL && strike < currentIndexVal || (type===OPTION_TYPES.PUT &&strike > currentIndexVal ))
   }
 
 
@@ -109,3 +110,8 @@ export type InstrumentCode = "26009" | "26000" | "26037" | "26074";
 
 
 export const sleep=(ms:number)=> new Promise(res=>setTimeout(res,ms))
+
+export const optionChainHead={
+  call:{ltp:"CALL LTP",oi:"OI Chg"},
+  put:{ltp:"PUT LTP",oi:"OI Chg"}
+}

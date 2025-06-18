@@ -23,7 +23,7 @@ export const selectOptionChainLoading = (state: RootState) => state.optionChain.
 export const selectOptionChainError = (state: RootState) => state.optionChain.error;
 
 // Get specific option data by strike and option type
-export const selectOptionByStrike = (strike: string, optionType: 'CE' | 'PE') =>
+export const selectOptionByStrike = (strike: string, optionType:  | 'PE') =>
   createSelector(
     [selectOptionObject],
     (optionObject) => optionObject[strike]?.[optionType]

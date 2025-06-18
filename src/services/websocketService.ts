@@ -5,7 +5,7 @@ import {setInstance,setConnected,updateTickerData,setError as setWebSocketError,
 import {setLoading,setOptionChainData,setError as setOptionChainError} from "../store/slices/optionChainSlice";
 import {setLoading as setTradingLoading,setPositions,setOrders,setError as setTradingError} from "../store/slices/tradingSlice";
 import { getExpiry, InstrumentCode, sleep } from "../constant/option";
-import { formatDate, getLatestExpiryDate } from "../constant/websocketConstants";
+import { formatDate, getLatestExpiryDate, WEBSOCKET_EVENTS } from "../constant/websocketConstants";
 import { GET_TRADES } from "../graphql/trade/trade";
 import type {GetTraderResponse,GetTraderVariables,Position,Order} from "../graphql/trade/types";
 import client from "../apollo/client";
@@ -44,46 +44,51 @@ class WebSocketService {
       store.dispatch(setWebSocketError(error.message));
     }
   }
+  
 
   private setupWebSocketListeners(): void {
     if (!this.ws) return;
-    this.ws.on("connected", () => {
-      console.log("WebSocket connected");
+  
+    this.ws.on(WEBSOCKET_EVENTS.CONNECTED, () => {
+      console.log("WebSocket event:", WEBSOCKET_EVENTS.CONNECTED);
       store.dispatch(setConnected(true));
     });
-
-    this.ws.on("authenticated", async () => {
-      console.log("WebSocket authenticated");
+  
+    this.ws.on(WEBSOCKET_EVENTS.AUTHENTICATED, async () => {
+      console.log("WebSocket event:", WEBSOCKET_EVENTS.AUTHENTICATED);
       await this.autoFetchOptionChain();
     });
-
-    this.ws.on("disconnected", () => {
-      console.log("WebSocket disconnected");
+  
+    this.ws.on(WEBSOCKET_EVENTS.DISCONNECTED, () => {
+      console.log("WebSocket event:", WEBSOCKET_EVENTS.DISCONNECTED);
       this.clearTimers();
       store.dispatch(disconnect());
     });
-
-    this.ws.on("connectionDropped", () => {
-      console.log("WebSocket connection dropped");
+  
+    this.ws.on(WEBSOCKET_EVENTS.CONNECTION_DROPPED, () => {
+      console.log("WebSocket event:", WEBSOCKET_EVENTS.CONNECTION_DROPPED);
       store.dispatch(setConnected(false));
     });
-
-    this.ws.on("tickerUpdate", (tickerData) => {
+  
+    this.ws.on(WEBSOCKET_EVENTS.TICKER_UPDATE, (tickerData) => {
+      console.log("WebSocket event:", WEBSOCKET_EVENTS.TICKER_UPDATE, tickerData);
       store.dispatch(updateTickerData(tickerData));
     });
-
-    this.ws.on("orderAlert", (alertData) => {
+  
+    this.ws.on(WEBSOCKET_EVENTS.ORDER_ALERT, (alertData) => {
+      console.log("WebSocket event:", WEBSOCKET_EVENTS.ORDER_ALERT, alertData);
       if (alertData.type === "error") {
         store.dispatch(addToast({ message: alertData.message, type: 'error' }));
       }
       this.debounceFetchTradingData(alertData.orderData.actid);
     });
-
-    this.ws.on("error", (error) => {
-      console.error("WebSocket error:", error);
+  
+    this.ws.on(WEBSOCKET_EVENTS.ERROR, (error) => {
+      console.error("WebSocket event:", WEBSOCKET_EVENTS.ERROR, error);
       store.dispatch(setWebSocketError(error.message));
     });
   }
+  
 
   private debounceFetchTradingData(actid: string): void {
     this.clearTimers();

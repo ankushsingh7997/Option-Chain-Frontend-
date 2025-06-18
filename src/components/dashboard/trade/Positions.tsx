@@ -4,6 +4,7 @@ import { selectTickerByToken } from "../../../store/selectors"
 import { Position } from "../../../graphql/trade/types"
 import React, { useMemo } from "react"
 import EmptyState from "../../ui/general/EmptyState"// Adjust path as needed
+import { TRANSACTION_TYPES } from "../../../constant/websocketConstants"
 
 const product: { [key: string]: string } = {
   M: "MIS",
@@ -41,7 +42,7 @@ const Orders: React.FC<{ pos: PositionWithPnL }> = ({ pos }) => <span>{product[p
 
 const BS: React.FC<{ pos: PositionWithPnL }> = ({ pos }) => {
   const textColor = pos.netQuantity > 0 ? "text-profit" : "text-loss"
-  const Value = pos.netQuantity > 0 ? "B" : "S"
+  const Value = pos.netQuantity > 0 ? TRANSACTION_TYPES.BUY : TRANSACTION_TYPES.SELL
   return <span className={textColor}>{Value}</span>
 };
 

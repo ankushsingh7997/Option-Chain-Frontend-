@@ -4,6 +4,7 @@ import { Order } from "../../../graphql/trade/types";
 import { useAppSelector } from "../../../store";
 import { selectOrders, selectTickerByToken } from "../../../store/selectors";
 import EmptyState from "../../ui/general/EmptyState";
+import { ORDER_STATUS, TRANSACTION_TYPES } from "../../../constant/websocketConstants";
 
 const product: { [key: string]: string } = {
   M: "MIS",
@@ -18,8 +19,8 @@ const Instrument: React.FC<{ ord: Order }> = ({ ord }) => <span>{ord.symbol}</sp
 const Product: React.FC<{ ord: Order }> = ({ ord }) => <span>{product[ord.product]}</span>;
 
 const BS: React.FC<{ ord: Order }> = ({ ord }) => {
-  const textColor = ord.transactionType==="B"  ? "text-profit" : "text-loss"
-  const Value = ord.transactionType ==="B" ? "B" : "S"
+  const textColor = ord.transactionType===TRANSACTION_TYPES.BUY  ? "text-profit" : "text-loss"
+  const Value = ord.transactionType ===TRANSACTION_TYPES.BUY ? TRANSACTION_TYPES.BUY : TRANSACTION_TYPES.SELL
   return <span className={textColor}>{Value}</span>
 };
 
@@ -34,8 +35,8 @@ const LTP: React.FC<{ ord: Order }> = ({ ord }) => {
 }
 
 const Status: React.FC<{ ord: Order }> = ({ ord }) => {
-  const textColor=ord.status==="REJECTED"? "loss":ord.status==="COMPLETE"?"profit":""
-  return <span className={`text-${textColor}`}>{ord.status}</span>
+  const textColor=ord.status===ORDER_STATUS.REJECTED ? "loss":ord.status===ORDER_STATUS.COMPLETE?"profit":""
+  return <span className={`text-${textColor}`}> {ord.status} </span>
 }
 
 const COMPONENT_MAP: { [key: string]: React.FC<{ ord: Order }> } = {
