@@ -184,6 +184,15 @@ img {
   animation: slide-in 0.3s ease-out;
 }
 
+/* Toggle css */
+
+.toggle{
+  display: none;
+}
+.toggle:hover{
+  display:flex
+}
+
 
 /* Dropdown Menu Overlay */
 .actions-dropdown-overlay .ant-dropdown {
@@ -242,4 +251,4 @@ img {
   z-index: 1050 !important;
 }
 
-/* Table custom css */
+
