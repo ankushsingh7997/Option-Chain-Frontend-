@@ -107,7 +107,7 @@ class WebSocketService {
 
   private async autoFetchOptionChain(): Promise<void> {
     if (!this.ws?.getConnectionStatus()) return;
-    await sleep(200)
+    await sleep(400)
     const state = store.getState();
     const { selectedIndex, } = state.optionChain;
     const currentPrice= state.websocket.tickerData[selectedIndex]?.lp
