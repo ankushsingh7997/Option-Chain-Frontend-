@@ -57,7 +57,6 @@ const initializePreviousParams = () => {
       currentPrice: parseFloat(stored.currentPrice),
       expiryDate: stored.expiryDate
     };
-    console.log('Initialized previous params from localStorage:', previousParams);
   }
 };
 

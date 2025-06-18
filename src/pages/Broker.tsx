@@ -8,13 +8,7 @@ import Header from '../components/layout/Header';
 import { useBrokerData } from '../hooks/useBrokerData';
 
 const BrokerPage: React.FC = () => {
-    const {brokerData,error,fetchBrokers,updateBrokerData,hasData,hasError} = useBrokerData({ fetchPolicy: 'immediate',
-        onSuccess: (data) => {
-            console.log(data, "Broker data loaded successfully");
-        },
-        onError: (error) => {
-            console.error('Failed to load broker data:', error);
-        }
+    const {brokerData,error,fetchBrokers,updateBrokerData,hasData,hasError} = useBrokerData({ fetchPolicy: 'immediate'
     });
 
     const handleRefresh = () => {

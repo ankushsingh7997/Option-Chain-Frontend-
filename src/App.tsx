@@ -22,11 +22,7 @@ function App() {
   
   const { data, loading, error } = useQuery(getUser, {errorPolicy: 'all',fetchPolicy: 'cache-and-network'})
 
-  const { triggerLazyFetch } = useBrokerData({fetchPolicy: 'lazy',autoFetch: true,onSuccess: (brokerData) => {console.log(brokerData, "Broker data loaded in App")},
-    onError: (error) => {
-      console.error('Broker fetch failed in App:', error);
-    }
-  });
+  const { triggerLazyFetch } = useBrokerData({fetchPolicy: 'lazy',autoFetch: true,});
 
   useEffect(() => {
     if (data?.getUser) {
