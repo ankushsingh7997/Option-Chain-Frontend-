@@ -4,7 +4,7 @@ import { store } from "../store";
 import {setInstance,setConnected,updateTickerData,setError as setWebSocketError,disconnect} from "../store/slices/websocketSlice";
 import {setLoading,setOptionChainData,setError as setOptionChainError} from "../store/slices/optionChainSlice";
 import {setLoading as setTradingLoading,setPositions,setOrders,setError as setTradingError} from "../store/slices/tradingSlice";
-import { getExpiry } from "../constant/option";
+import { getExpiry, InstrumentCode, sleep } from "../constant/option";
 import { formatDate, getLatestExpiryDate } from "../constant/websocketConstants";
 import { GET_TRADES } from "../graphql/trade/trade";
 import type {GetTraderResponse,GetTraderVariables,Position,Order} from "../graphql/trade/types";
@@ -107,14 +107,13 @@ class WebSocketService {
 
   private async autoFetchOptionChain(): Promise<void> {
     if (!this.ws?.getConnectionStatus()) return;
-
+    await sleep(200)
     const state = store.getState();
-    const { selectedIndex, currentPrice } = state.optionChain;
-
-    const expiryDay = getExpiry("26000");
+    const { selectedIndex, } = state.optionChain;
+    const currentPrice= state.websocket.tickerData[selectedIndex]?.lp
+    const expiryDay = getExpiry(selectedIndex as InstrumentCode);
     const latestExpiryMoment = getLatestExpiryDate(expiryDay);
     const latestExpiryDate = formatDate(latestExpiryMoment.toDate());
-
     if (selectedIndex && currentPrice && latestExpiryDate) {
       console.log("Auto-fetching option chain after authentication");
       await this.fetchOptionChain(selectedIndex, currentPrice, latestExpiryDate);

@@ -13,7 +13,7 @@ const Option: React.FC = () => {
   const isMobile=useMobileView()
 
 useEffect(()=>{
-  if(brokerData?.loginStatus) websocketService.connect({accessToken:brokerData.accessToken as string,actid:brokerData.actid,loginStatus:brokerData.loginStatus})
+  if (brokerData?.loginStatus) websocketService.connect({accessToken:brokerData.accessToken as string,actid:brokerData.actid,loginStatus:brokerData.loginStatus})
 },[brokerData?.loginStatus])
 
   return (

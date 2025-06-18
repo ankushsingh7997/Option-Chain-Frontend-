@@ -106,3 +106,6 @@ export type InstrumentCode = "26009" | "26000" | "26037" | "26074";
       };
     });
   };
+
+
+export const sleep=(ms:number)=> new Promise(res=>setTimeout(res,ms))
