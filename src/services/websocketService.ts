@@ -71,7 +71,6 @@ class WebSocketService {
     });
   
     this.ws.on(WEBSOCKET_EVENTS.TICKER_UPDATE, (tickerData) => {
-      console.log("WebSocket event:", WEBSOCKET_EVENTS.TICKER_UPDATE, tickerData);
       store.dispatch(updateTickerData(tickerData));
     });
   

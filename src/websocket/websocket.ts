@@ -42,12 +42,12 @@ export class TradingWebSocket extends EventEmitter {
   private isConnected = false;
   private isOpen = false;
   reconnectAttempts = 0;
-  // private maxReconnectAttempts = 5;
-  // private reconnectDelay = 5000;
+  private maxReconnectAttempts = 5;
+  private reconnectDelay = 5000;
   private reconnectTimer: NodeJS.Timeout | null = null;
   private tokenSubscribed: { [key: string]: number } = {};
   private timeoutIds: { [key: string]: NodeJS.Timeout } = {};
-  // private readonly updateDelay = 750;
+  private isReconnecting = false; // Flag to prevent multiple reconnection attempts
 
   // Debouncing properties
   private tickerUpdateTimer: NodeJS.Timeout | null = null;
@@ -109,7 +109,7 @@ export class TradingWebSocket extends EventEmitter {
           this.lastMessageTime = now;
         }
         
-        if (this.messageCount > 200) {
+        if (this.messageCount > 300) {
           console.warn('Rate limiting WebSocket messages');
           return;
         }
@@ -128,6 +128,7 @@ export class TradingWebSocket extends EventEmitter {
     this.ws.onclose = (event) => {
       console.log('WebSocket closed:', event.code, event.reason);
       this.isConnected = false;
+      this.isOpen = false;
       this.clearTickerTimer();
       
       if (event.code !== 3001) {
@@ -144,6 +145,7 @@ export class TradingWebSocket extends EventEmitter {
       this.subscribeToIndexTokens();
       this.subscribeToOrderUpdates();
       this.isConnected = true;
+      this.isReconnecting = false; 
       this.emit('authenticated');
       return;
     }
@@ -281,23 +283,73 @@ export class TradingWebSocket extends EventEmitter {
     }
   }
 
-  private handleReconnection(): void {
-     //   if (this.reconnectAttempts >= this.maxReconnectAttempts) {
-  //     this.emit('maxReconnectAttemptsReached');
-  //     return;
-  //   }
-  // // this.disconnect()
-  //   this.reconnectAttempts++;
-  //   console.log(`Attempting to reconnect... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
+  private async handleReconnection(): Promise<void> {
+    // Prevent multiple reconnection attempts
+    if (this.isReconnecting) {
+      return;
+    }
 
-  //   this.reconnectTimer = setTimeout(() => {
-  //     if (this.brokerData) {
-  //       this.createConnection();
-  //     }
-  //   }, this.reconnectDelay * this.reconnectAttempts);
+    this.isReconnecting = true;
+    
+    // Clear any existing reconnection timer
+    if (this.reconnectTimer) {
+      clearTimeout(this.reconnectTimer);
+      this.reconnectTimer = null;
+    }
 
-  //   this.emit('reconnecting', this.reconnectAttempts);
-  
+    // Loop through reconnection attempts
+    for (let attempt = 1; attempt <= this.maxReconnectAttempts; attempt++) {
+      // Check if already connected (maybe connection was restored)
+      if (this.isConnected) {
+        console.log('Connection already restored, stopping reconnection attempts');
+        this.isReconnecting = false;
+        return;
+      }
+
+      this.reconnectAttempts = attempt;
+      console.log(`Attempting to reconnect... (${attempt}/${this.maxReconnectAttempts})`);
+      
+      this.emit('reconnecting', attempt);
+
+      try {
+        // Wait for the reconnection delay (exponential backoff)
+        const delay = this.reconnectDelay 
+        await this.sleep(delay);
+
+        // Check connection status again after delay
+        if (this.isConnected) {
+          console.log('Connection restored during delay, stopping reconnection attempts');
+          this.isReconnecting = false;
+          return;
+        }
+
+        // Attempt to create new connection
+        if (this.brokerData) {
+          this.createConnection();
+          
+          // Wait a bit to see if connection succeeds
+          await this.sleep(2000);
+          
+          // Check if connection was successful
+          if (this.isConnected) {
+            console.log(`Reconnection successful on attempt ${attempt}`);
+            this.isReconnecting = false;
+            return;
+          }
+        }
+      } catch (error) {
+        console.error(`Reconnection attempt ${attempt} failed:`, error);
+      }
+    }
+
+    // All reconnection attempts failed
+    console.error(`All reconnection attempts failed after ${this.maxReconnectAttempts} tries`);
+    this.isReconnecting = false;
+    this.emit('maxReconnectAttemptsReached');
+  }
+
+  private sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   public disconnect(): void {
@@ -306,6 +358,7 @@ export class TradingWebSocket extends EventEmitter {
       this.reconnectTimer = null;
     }
 
+    this.isReconnecting = false; 
     this.clearTickerTimer()
     Object.values(this.timeoutIds).forEach(timeoutId => {
       clearTimeout(timeoutId);
@@ -317,6 +370,7 @@ export class TradingWebSocket extends EventEmitter {
       this.ws = null;
     }
     this.isConnected = false;
+    this.isOpen = false;
     this.tokenSubscribed = {};
     this.reconnectAttempts = 0;
     this.brokerData = null;
