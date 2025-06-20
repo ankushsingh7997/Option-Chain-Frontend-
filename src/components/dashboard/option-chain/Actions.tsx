@@ -58,10 +58,10 @@ const Actions: React.FC = () => {
   return (
     <div className="h-14 xs:h-16 sm:h-20 w-full border border-light-gray flex items-center px-2 xs:px-3 sm:px-4 overflow-x-auto hide-scrollbar">
       {/* Mobile: Stack vertically on very small screens, horizontal on larger */}
-      <div className="flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-3 sm:gap-4 w-full min-w-fit">
+      <div className="flex flex-col flex-row items-start xs:items-center gap-2 xs:gap-3 sm:gap-4 w-full min-w-fit ">
         
         {/* Index Dropdown */}
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 ">
           <Dropdown
             menu={{ items: indexItems }}
             overlayClassName="actions-dropdown-overlay"
