@@ -1,5 +1,5 @@
 import { DownOutlined } from "@ant-design/icons";
-import { Button, Dropdown, MenuProps, Space, InputNumber } from "antd";
+import { Button, Dropdown, MenuProps, InputNumber } from "antd";
 import React, { useCallback } from "react"
 import { formatDate, getExpiryItems, getLatestExpiryDate, INDEX_TICKER_MAP } from "../../../constant/websocketConstants";
 import { store, useAppSelector } from "../../../store";
@@ -9,7 +9,8 @@ import { setLotSize, setOptionChainParams } from "../../../store/slices/optionCh
 
 const getCurrentIndexLabel = (selectedIndex: string) => selectedIndex ? INDEX_TICKER_MAP[String(selectedIndex)] : "NIFTY"
 
-const dropDownCss = "actions-dropdown-btn border !border-border !bg-atm !text-white !font-normal !h-[40px] !text-14 !flex items-center !justify-between"
+// Responsive dropdown styles 
+const dropDownCss = "actions-dropdown-btn border !border-border !bg-atm !text-white !font-normal !h-[32px] xs:!h-[36px] sm:!h-[40px] !text-10 xs:!text-12 sm:!text-14 !flex items-center !justify-between !px-2 xs:!px-3 sm:!px-4"
 
 const getCurrentExpiryLabel = (expiryDate: string, selectedIndex: string) => {
   if (expiryDate) return expiryDate;
@@ -55,35 +56,51 @@ const Actions: React.FC = () => {
   }, []) 
 
   return (
-    <div className="h-20 w-full border border-light-gray flex items-center px-4">
-      <Space size='middle'>
-        <Dropdown
-          menu={{ items: indexItems }}
-          overlayClassName="actions-dropdown-overlay"
-          trigger={['click']}
-        >
-          <Button className={dropDownCss}>
-            <span>{getCurrentIndexLabel(selectedIndex)}</span>
-            <DownOutlined />
-          </Button>
-        </Dropdown>
-        <Dropdown menu={{ items: getExpiryItems(selectedIndex, HandleExpiryChange) }}
-          overlayClassName="actions-dropdown-overlay"
-          trigger={['click']}
-        >
-          <Button className={dropDownCss}>
-            <span>{getCurrentExpiryLabel(expiryDate as string, selectedIndex)}</span>
-            <DownOutlined />
-          </Button>
-        </Dropdown>
-        <InputNumber
-          min={1}
-          max={10}
-          value={lots}
-          onChange={(value) => HandleLotsChange(value)}
-          className={`${dropDownCss} w-[110px] [&_.ant-input-number-input]:!text-white [&_.ant-input-number-input]:!text-center`}
-        />
-      </Space>
+    <div className="h-14 xs:h-16 sm:h-20 w-full border border-light-gray flex items-center px-2 xs:px-3 sm:px-4 overflow-x-auto hide-scrollbar">
+      {/* Mobile: Stack vertically on very small screens, horizontal on larger */}
+      <div className="flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-3 sm:gap-4 w-full min-w-fit">
+        
+        {/* Index Dropdown */}
+        <div className="flex-shrink-0">
+          <Dropdown
+            menu={{ items: indexItems }}
+            overlayClassName="actions-dropdown-overlay"
+            trigger={['click']}
+          >
+            <Button className={`${dropDownCss} min-w-[70px] xs:min-w-[85px] sm:min-w-[100px]`}>
+              <span className="truncate">{getCurrentIndexLabel(selectedIndex)}</span>
+              <DownOutlined className="ml-1 xs:ml-2 !text-10 xs:!text-11 sm:!text-12" />
+            </Button>
+          </Dropdown>
+        </div>
+
+        {/* Expiry Dropdown */}
+        <div className="flex-shrink-0">
+          <Dropdown 
+            menu={{ items: getExpiryItems(selectedIndex, HandleExpiryChange) }}
+            overlayClassName="actions-dropdown-overlay"
+            trigger={['click']}
+          >
+            <Button className={`${dropDownCss} min-w-[90px] xs:min-w-[105px] sm:min-w-[120px]`}>
+              <span className="truncate text-10 xs:text-11 sm:text-12">
+                {getCurrentExpiryLabel(expiryDate as string, selectedIndex)}
+              </span>
+              <DownOutlined className="ml-1 xs:ml-2 !text-10 xs:!text-11 sm:!text-12" />
+            </Button>
+          </Dropdown>
+        </div>
+
+        {/* Lots Input */}
+        <div className="flex-shrink-0">
+          <InputNumber
+            min={1}
+            max={10}
+            value={lots}
+            onChange={(value) => HandleLotsChange(value)}
+            className={`${dropDownCss} w-[60px] xs:w-[75px] sm:w-[110px] [&_.ant-input-number-input]:!text-white [&_.ant-input-number-input]:!text-center [&_.ant-input-number-input]:!text-10 xs:[&_.ant-input-number-input]:!text-11 sm:[&_.ant-input-number-input]:!text-12`}
+          />
+        </div>
+      </div>
     </div>
   );
 };

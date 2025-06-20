@@ -1,7 +1,7 @@
 import axios from "axios"
 import _ from "lodash"
 
-import { getTradingSymbol,getNearestStrikePrice,createFullTokenString,INDEX_TICKER_MAP,STRIKE_DIFFERENCES, OPTION_TYPES, parseTokenFromSymbol } from "../constant/websocketConstants"
+import { getTradingSymbol,getNearestStrikePrice,createFullTokenString,INDEX_TICKER_MAP,STRIKE_DIFFERENCES, parseTokenFromSymbol } from "../constant/websocketConstants"
 
 export interface OptionChainData{
     exchage:string;
