@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Plus, Lock } from 'lucide-react';
 import { useAppSelector } from "../../../store";
 import { selectBrokerData, selectOptionObject } from "../../../store/selectors";
-import StrikeLtp from "./Strike";
+import StrikeLtp from "./StrikeLtp";
 import EmptyState from '../../broker/EmptyState';
 import Button from '../../ui/Button/Button';
 import { optionChainHead } from '../../../constant/option';
@@ -16,19 +16,19 @@ const OptionChain: React.FC = () => {
   const OptionChainData = () => (
     <>
       <div className="w-full h-[10%] flex items-center text-12 border-b border-b-light-gray bg-atm">
-        <div className="w-[40%] h-[100%] flex items-center justify-start pl-2">
-          <div className="w-[50%] flex justify-between">
-            <span>{optionChainHead.call.ltp}</span>
-            <span>{optionChainHead.call.oi}</span>
+        <div className="w-[40%] h-[100%] flex items-center justify-start pl-2 ">
+          <div className="w-[100%] flex justify-between ">
+            <span className=" w-[50%] whitespace-nowrap">{optionChainHead.call.ltp}</span>
+            <span className=" w-[50%] whitespace-nowrap">{optionChainHead.call.oi}</span>
           </div>
         </div>
         <div className="w-[20%] h-[100%] flex items-center justify-center">
           Strike
         </div>
         <div className="w-[40%] h-[100%] flex items-center justify-end pr-2">
-          <div className="w-[50%] flex justify-between">
-            <span>{optionChainHead.put.oi}</span>
-            <span>{optionChainHead.call.ltp}</span>
+          <div className="w-[100%] flex justify-between ">
+            <span className=" w-[50%] whitespace-nowrap flex justify-end">{optionChainHead.put.oi}</span>
+            <span className=" w-[50%] whitespace-nowrap flex justify-end">{optionChainHead.call.ltp}</span>
           </div>
         </div>
       </div>

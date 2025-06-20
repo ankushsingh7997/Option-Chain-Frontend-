@@ -47,9 +47,9 @@ const Call: React.FC<CallPutProps> = memo(({ lp, bg, oi, poi = 0, maxOi, option,
     
     return (
         <div className={`w-[40%] h-[100%] flex items-center justify-start pl-2 ${bg} relative group`}>
-            <div className="w-[50%] flex justify-between">
-                <span>{lp}</span>
-                <span className={profit ? "text-profit" : "text-loss"}>
+            <div className="w-[100%] flex justify-between ">
+                <span className=" w-[50%] whitespace-nowrap flex justify-start ">{lp}</span>
+                <span className={`${profit ? "text-profit" : "text-loss"} w-[50%] whitespace-nowrap `}>
                     {formatNumber(Number(oi))}
                 </span>
             </div>
@@ -89,9 +89,9 @@ const Put: React.FC<CallPutProps> = memo(({  lp, bg, oi, poi, maxOi, option, onT
     
     return (
         <div className={`w-[40%] h-[100%] flex items-center justify-end pr-2 ${bg} relative group`}>
-            <div className="w-[50%] flex justify-between">
-                <span className={textColorClass}>{formatNumber(Number(oi))}</span>
-                <span>{lp}</span>
+            <div className="w-[100%] flex justify-between">
+                <span className={`${textColorClass} w-[50%] whitespace-nowrap flex justify-end`}>{formatNumber(Number(oi))}</span>
+                <span className="w-[50%] whitespace-nowrap flex justify-end">{lp}</span>
             </div>
             <Progress oi={oi} maxOi={maxOi} classCss={classCss} />
             <div className="absolute left-6 top-3 hidden group-hover:flex transition-all duration-200 flex w-[50px] justify-between">
