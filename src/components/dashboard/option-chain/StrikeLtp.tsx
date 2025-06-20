@@ -57,7 +57,7 @@ const Call: React.FC<CallPutProps> = memo(({ lp, bg, oi, poi = 0, maxOi, option,
             <Progress oi={oi} maxOi={maxOi} classCss={classCss} />
 
             {/* Toggle buttons - hidden by default, shown on group hover */}
-            <div className="absolute right-6 top-3 hidden group-hover:flex transition-all duration-200 w-[50px] justify-between">
+            <div className="absolute left-12 top-3 hidden group-hover:flex transition-all duration-200 w-[40px] justify-between">
                <span 
                  className="bg-profit w-[18px] h-[18px] flex items-center justify-center rounded-[3px] cursor-pointer text-white text-xs font-medium hover:bg-green-600 transition-colors" 
                  onClick={() => handleToggle('B')}
@@ -94,9 +94,9 @@ const Put: React.FC<CallPutProps> = memo(({  lp, bg, oi, poi, maxOi, option, onT
                 <span className="w-[50%] whitespace-nowrap flex justify-end">{lp}</span>
             </div>
             <Progress oi={oi} maxOi={maxOi} classCss={classCss} />
-            <div className="absolute left-6 top-3 hidden group-hover:flex transition-all duration-200 flex w-[50px] justify-between">
-               <span className="bg-loss w-[18px] flex items-center justify-center rounded-[3px]" onClick={() => handleToggle('S')}>S</span>
-               <span className="bg-profit w-[18px] flex items-center justify-center rounded-[3px]" onClick={() => handleToggle('B')}>B</span>
+            <div className="absolute right-12 top-3 hidden group-hover:flex transition-all duration-200 flex w-[40px] justify-between">
+               <span className="bg-loss w-[18px] flex items-center justify-center rounded-[3px] hover:bg-red-600" onClick={() => handleToggle('S')}>S</span>
+               <span className="bg-profit w-[18px] flex items-center justify-center rounded-[3px] hover:bg-green-600" onClick={() => handleToggle('B')}>B</span>
             </div>
         </div>
     )
