@@ -32,6 +32,8 @@ const Button: React.FC<ButtonProps> = ({
     "h-[30px] px-3 py-1",
     "shadow-shadow-1",
     "transition-colors duration-300 ease-in-out",
+    "whitespace-nowrap", 
+    "min-w-fit", 
     disabled ? "cursor-not-allowed" : "cursor-pointer",
   ];
 

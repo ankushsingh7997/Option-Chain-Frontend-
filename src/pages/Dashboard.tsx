@@ -5,13 +5,8 @@ import useMobileView from "../hooks/useMobileView";
 
 export default function Dashboard() {
   const isMobile = useMobileView();
-
-  const containerClass = isMobile
-    ? "pt-4 px-4" : "flex h-[calc(100vh-80px)] pt-4 px-4 gap-4 overflow-hidden";
-
-  const optionClass = isMobile
-    ? "h-[calc(100vh-80px)]" : "w-[35%] h-full";
-
+  const containerClass = isMobile ? "pt-4 px-4" : "flex h-[calc(100vh-80px)] pt-4 px-4 gap-4 overflow-hidden";
+  const optionClass = isMobile ? "h-[calc(100vh-80px)]" : "w-[35%] h-full";
   const tradeClass = isMobile ? "min-h-screen pt-4" : "w-[65%] h-full";
 
   return (

@@ -12,7 +12,7 @@ const OptionChain: React.FC = () => {
   const navigate = useNavigate();
   const optionObject = useAppSelector(selectOptionObject);
   const broker = useAppSelector(selectBrokerData);
-  // Component for Option Chain Data
+
   const OptionChainData = () => (
     <>
       <div className="w-full h-[10%] flex items-center text-12 border-b border-b-light-gray bg-atm">
@@ -39,49 +39,37 @@ const OptionChain: React.FC = () => {
       </div>
     </>
   );
-  
+
   const renderContent = () => {
-    if (!broker) {
+    // Show EmptyState only if broker is missing or not logged in
+    if (!broker || !broker.loginStatus) {
+      const isMissing = !broker;
+
+      const emptyStateProps = {
+        icon: isMissing
+          ? <Plus className="w-8 h-8 text-sec-blue" />
+          : <Lock className="w-8 h-8 text-sec-blue" />,
+        title: isMissing ? "Connect Your Broker" : "Login Required",
+        message: isMissing
+          ? "Connect your broker account to view live option chain data and place trades"
+          : "Please login to your broker account to view option chain details",
+        actionButton: (
+          <Button
+            text="Go to Broker Page"
+            variant="primary"
+            onClick={() => navigate('/broker')}
+            className="h-12 text-white rounded-lg"
+          />
+        ),
+      };
+
       return (
         <div className="flex-1 flex items-center justify-center p-8">
-          <EmptyState
-            icon={<Plus className="w-8 h-8 text-sec-blue" />}
-            title="Connect Your Broker"
-            message="Connect your broker account to view live option chain data and place trades"
-            actionButton={
-              <Button 
-                text="Go to Broker Page"
-                variant="primary"
-                onClick={() => navigate('/broker')}
-                className="h-12 text-white rounded-lg"
-              />
-            }
-          />
+          <EmptyState {...emptyStateProps} />
         </div>
       );
     }
-    
-    // Broker exists but not logged in
-    if (broker && !broker.loginStatus) {
-      return (
-        <div className="flex-1 flex items-center justify-center p-8">
-          <EmptyState
-            icon={<Lock className="w-8 h-8 text-sec-blue" />}
-            title="Login Required"
-            message="Please login to your broker account to view option chain details"
-            actionButton={
-              <Button 
-                text="Go to Broker Page"
-                variant="primary"
-                onClick={() => navigate('/broker')}
-                className="h-12 text-white rounded-lg"
-              />
-            }
-          />
-        </div>
-      );
-    }
-    
+
     return <OptionChainData />;
   };
 

@@ -35,7 +35,7 @@ type HeaderProps = {
             <span
               key={key}
               onClick={() => setTab(key)}
-              className={`cursor-pointer w-[150px] ${
+              className={`cursor-pointer w-[150px] whitespace-nowrap ${
                 tab === key ? "font-semibold text-sec-blue w-[150px]" : ""
               }`}
             >
