@@ -117,8 +117,7 @@ const StrikeLtp = React.memo<strikeLtp>(({ strike }) => {
             const input = convertObject({option, actid: broker?.actid, lot: lots, transaction: type === "B" ? 1 : 0});
             const { data } = await placeOrder({ variables: { input } });
             const response=data.placeOrder
-            if(response.status) toast.success(response.message)
-            else toast.error(response.message)
+            if(!response.status) toast.success(response.message)
         } catch (error) {
             console.error("Order error:", error);
         }
