@@ -9,7 +9,7 @@ import { TRANSACTION_TYPES } from "../../../constant/websocketConstants"
 const product: { [key: string]: string } = {
   M: "MIS",
   C: "CNC",
-  I: "INTRA"
+  I: "I"
 }
 
 interface PositionWithPnL extends Position {
@@ -112,8 +112,8 @@ const Positions: React.FC<PositionsProps> = React.memo(({
           </span>
         ))}
         {showCheckboxes && (
-          <div className="w-[5%] flex items-center justify-center">
-            <span className="text-13">Select</span>
+          <div className="w-[2%] flex items-center justify-center">
+            {/* <span className="text-13"></span> */}
           </div>
         )}
       </div>
@@ -145,7 +145,7 @@ const Positions: React.FC<PositionsProps> = React.memo(({
                   );
                 })}
                 {showCheckboxes && (
-                  <div className="w-[5%] flex items-center justify-center">
+                  <div className="w-[2%] flex items-center justify-center">
                     <input
                       type="checkbox"
                       checked={isSelected}

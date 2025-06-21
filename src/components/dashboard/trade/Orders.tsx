@@ -9,7 +9,7 @@ import { ORDER_STATUS, TRANSACTION_TYPES } from "../../../constant/websocketCons
 const product: { [key: string]: string } = {
   M: "MIS",
   C: "CNC",
-  I: "INTRA"
+  I: "I"
 }
 const formatCurrency = (value: number) => {
   return `₹${value.toFixed(1)}`;

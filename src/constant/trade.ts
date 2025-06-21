@@ -1,13 +1,13 @@
-const commen="flex items-center text-13 "
+const commen="flex items-center text-13"
 export const POSITION_COLUMNS = [
     {
       title: "instrument",
-      css: `w-[37%] md:w-[22%] ${commen}`,
+      css: `w-[40%] md:w-[22%] ${commen}`,
       key: "instrument",
     },
     {
-      title: "orders",
-      css: `w-[10%] md:w-[6%] ${commen}`,
+      title: "ord",
+      css: `w-[6%] md:w-[6%] ${commen}`,
       key: "orders",
     },
     {
@@ -44,7 +44,7 @@ export const ORDER_COLUMNS=[
         css: `w-[37%] md:w-[22%] ${commen}`,
         key:"instrument"
     },{
-        title :"orders",
+        title :"ord",
         css:`w-[12%] md:w-[6%] ${commen}`,
         key:"orders"
     },

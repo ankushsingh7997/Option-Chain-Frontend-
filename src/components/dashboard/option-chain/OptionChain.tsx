@@ -18,8 +18,8 @@ const OptionChain: React.FC = () => {
       <div className="w-full h-[10%] flex items-center text-12 border-b border-b-light-gray bg-atm">
         <div className="w-[40%] h-[100%] flex items-center justify-start pl-2 ">
           <div className="w-[100%] flex justify-between ">
-            <span className=" w-[50%] whitespace-nowrap">{optionChainHead.call.ltp}</span>
-            <span className=" w-[50%] whitespace-nowrap">{optionChainHead.call.oi}</span>
+            <span className=" w-[40%] whitespace-nowrap">{optionChainHead.call.ltp}</span>
+            <span className=" w-[40%] whitespace-nowrap">{optionChainHead.call.oi}</span>
           </div>
         </div>
         <div className="w-[20%] h-[100%] flex items-center justify-center">
@@ -27,8 +27,8 @@ const OptionChain: React.FC = () => {
         </div>
         <div className="w-[40%] h-[100%] flex items-center justify-end pr-2">
           <div className="w-[100%] flex justify-between ">
-            <span className=" w-[50%] whitespace-nowrap flex justify-end">{optionChainHead.put.oi}</span>
-            <span className=" w-[50%] whitespace-nowrap flex justify-end">{optionChainHead.call.ltp}</span>
+            <span className=" w-[40%] whitespace-nowrap flex justify-end">{optionChainHead.put.oi}</span>
+            <span className=" w-[40%] whitespace-nowrap flex justify-end">{optionChainHead.call.ltp}</span>
           </div>
         </div>
       </div>
